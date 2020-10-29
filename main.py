@@ -86,22 +86,33 @@ def leitura_arquivo_csv(nome_arquivo, lista_de_resultados):
 
     return lista_de_resultados
 
+def leitura_arquivo_de_texto(nome_arquivo, lista_de_resultados):
+    with open(nome_arquivo, "r") as arquivo:
+        leitor = csv.reader(arquivo)
+        for linha in leitor:
+            if len(linha) == 0:
+                continue
+
+            for index, atributo in enumerate(linha[:-1]):
+                linha[index] = float(atributo)
+
+            # print(f"padrão a ser classificado: {linha}")
+            lista_de_resultados.append(Padrao(linha))
+
+    arquivo.close
+
+    return lista_de_resultados
+
 base_de_dados = []
 padroes_para_classificar = []
+menu_de_opcoes = []
 classes_dados = set()
 
 os.system("clear")
 
-print("""
-Passo a passo do algoritmo:
-1 - ler a base de dados
-2 - verificar quantos e quais são os casos específicos existentes nessa base de dados
-3 - a partir do resultado acima obtido, estipular um número de clusters
-4 - criação dos clusters com a mediana igual ao primeiro elemento de cada tipo (Iris-virginica, Iris-versicolor, Iris-setosa)
-5 - calcula a mediana de cada cluster de acordo com os dados usados como base de dados do classificador
-6 - adiciona o novo elemento para o cluster com menor distância e recalcula a mediana com o novo elemento adicionado
-7 - após esse "treinamento inicial", iremos refazer o passo 6 mas agora com os dados a serem classificados
-""")
+passo_a_passo = "passo_a_passo.txt"
+menu_de_opcoes = open(passo_a_passo, "r")
+print(menu_de_opcoes.read())
 
 nome_tabela_de_dados = "base_de_dados.txt"
 nome_tabela_padroes_para_classificar = "dados_para_classificar.txt"
@@ -151,7 +162,7 @@ for dado in base_de_dados:
 print("\nclusters depois da classificação inicial")
 for clus in clusters:
     print(clus)
-    
+
 classificacoes_corretas = 0
 for padrao in padroes_para_classificar:
     menor_distancia = 16844484
