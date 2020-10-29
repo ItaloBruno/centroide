@@ -1,0 +1,8 @@
+Passo a passo do algoritmo:
+1 - ler a base de dados
+2 - verificar quantos e quais são os casos específicos existentes nessa base de dados
+3 - a partir do resultado acima obtido, estipular um número de clusters
+4 - criação dos clusters com a mediana igual ao primeiro elemento de cada tipo (Iris-virginica, Iris-versicolor, Iris-setosa)
+5 - calcula a mediana de cada cluster de acordo com os dados usados como base de dados do classificador
+6 - adiciona o novo elemento para o cluster com menor distância e recalcula a mediana com o novo elemento adicionado
+7 - após esse "treinamento inicial", iremos refazer o passo 6 mas agora com os dados a serem classificados
